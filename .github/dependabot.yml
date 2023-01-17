@@ -1,0 +1,9 @@
+version: 2
+updates:
+    # Maintain Dependencies for YARN
+    - package-ecosystem: 'npm'
+      open-pull-requests-limit: 5
+      rebase-strategy: auto
+      directory: /
+      schedule:
+          interval: 'weekly'

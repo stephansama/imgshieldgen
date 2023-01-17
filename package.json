@@ -1,0 +1,80 @@
+{
+	"name": "imgshieldgen",
+	"icon": "",
+	"author": {
+		"url": "https://github.com/stephansama",
+		"name": "Stephan Randle",
+		"email": "stephanrandle.dev@gmail.com"
+	},
+	"private": true,
+	"version": "0.0.0",
+	"license": "MIT",
+	"homepage": "https://img.shields.io.netlfy.app/",
+	"keywords": [
+		"shields.io",
+		"Badge",
+		"Generator",
+		"Preview",
+		"Image"
+	],
+	"repository": "https://github.com/stephansama/imgshieldgen",
+	"description": "Fast shields.io Badge Preview Generator.",
+	"displayName": "Image Shield Generator",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview",
+		"test": "node ./test.js",
+		"test-fmt": "prettier . --check",
+		"prettier": "prettier . -w",
+		"prettier-test": "prettier . --check",
+		"storybook": "start-storybook -p 6006",
+		"build-storybook": "build-storybook"
+	},
+	"prettier": {
+		"semi": false,
+		"useTabs": true,
+		"tabWidth": 4,
+		"singleQuote": true,
+		"jsxSingleQuote": true,
+		"overrides": [
+			{
+				"files": [
+					"*.html",
+					"*.jsx"
+				],
+				"options": {
+					"tabWidth": 2
+				}
+			}
+		]
+	},
+	"engines": {
+		"node": ">=v16.3.0",
+		"yarn": ">=v1.22.19"
+	},
+	"dependencies": {
+		"@emotion/react": "^11.10.5",
+		"@emotion/styled": "^11.10.5",
+		"@mui/icons-material": "^5.11.0",
+		"@mui/material": "^5.11.4",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.20.12",
+		"@storybook/addon-actions": "^6.5.15",
+		"@storybook/addon-essentials": "^6.5.15",
+		"@storybook/addon-interactions": "^6.5.15",
+		"@storybook/addon-links": "^6.5.15",
+		"@storybook/builder-vite": "^0.2.7",
+		"@storybook/react": "^6.5.15",
+		"@storybook/testing-library": "^0.0.13",
+		"@types/react": "^18.0.26",
+		"@types/react-dom": "^18.0.9",
+		"@vitejs/plugin-react": "^3.0.0",
+		"babel-loader": "^8.3.0",
+		"prettier": "^2.8.3",
+		"vite": "^4.0.0"
+	}
+}
