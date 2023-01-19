@@ -1,9 +1,16 @@
 import Navbar from '@components/Navbar'
+import Footer from '@components/Footer'
+import IconPicker from '@components/IconPicker'
+import { Box } from '@mui/material'
 
 export default function App() {
 	return (
-		<div className='App'>
+		<Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
 			<Navbar />
-		</div>
+			<Box sx={{ display: 'flex', flexGrow: 1 }}>
+				<IconPicker />
+				<Footer />
+			</Box>
+		</Box>
 	)
 }
