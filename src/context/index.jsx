@@ -18,13 +18,8 @@ export default function GlobalProvider({ children }) {
 		prefersDark ? 'dark' : 'light'
 	)
 
-	const setDarkMode = (val = undefined) => {
-		setDarkmode((prev) => {
-			if (val === undefined) return prev === 'dark' ? 'light' : 'dark'
-			else if (typeof val === 'boolean') return val ? 'dark' : 'light'
-			return prev
-		})
-	}
+	const toggleDarkmode = () =>
+		setDarkmode((prev) => (prev === 'dark' ? 'light' : 'dark'))
 
 	const isDark = darkmode === 'dark'
 
@@ -40,7 +35,7 @@ export default function GlobalProvider({ children }) {
 	)
 
 	return (
-		<GlobalContext.Provider value={{ isDark, setDarkMode }}>
+		<GlobalContext.Provider value={{ isDark, toggleDarkmode, setDarkmode }}>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
 				{children}
