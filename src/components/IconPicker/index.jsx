@@ -1,26 +1,65 @@
-import { useContext } from 'react'
+import { useCallback, useState } from 'react'
 
-import { Box } from '@mui/material'
-import simpleIcons from '@assets/Simple Icons.svg'
-import simpleIconsBlack from '@assets/Simple Icons black.svg'
+import { Box, Drawer } from '@mui/material'
 
-import { GlobalContext } from '@/context'
+import Icons from 'simple-icons'
+
+import Search from './Search'
+import SimpleIcon from './SimpleIcon'
 
 export default function IconPicker() {
-	const { isDark } = useContext(GlobalContext)
+	const [drawerWidth, setDrawerWidth] = useState(40)
+	const [filterText, setFilterText] = useState('')
+
+	const handleMouseDown = () => {
+		document.addEventListener('mouseup', handleMouseUp, true)
+		document.addEventListener('mousemove', handleMouseMove, true)
+	}
+
+	const handleMouseUp = () => {
+		document.removeEventListener('mouseup', handleMouseUp, true)
+		document.removeEventListener('mousemove', handleMouseMove, true)
+	}
+
+	const handleMouseMove = useCallback((e) => {
+		const newWidth = e.clientX - document.body.offsetLeft
+		if (newWidth > 40 && newWidth < 5000) setDrawerWidth(newWidth)
+	}, [])
+
 	return (
-		<Box
-			sx={{
-				border: `1px solid ${isDark ? 'white' : 'black'}`,
-				height: '100%',
-				width: 'fit-content',
+		<Drawer
+			anchor='left'
+			variant='permanent'
+			PaperProps={{
+				style: { width: drawerWidth, position: 'relative' },
 			}}
 		>
 			<Box
-				component='img'
-				src={isDark ? simpleIcons : simpleIconsBlack}
-				sx={{ width: '50px', height: '50px' }}
+				onMouseDown={handleMouseDown}
+				sx={{
+					width: '5px',
+					cursor: 'ew-resize',
+					padding: '4px 0 0',
+					position: 'absolute',
+					top: 0,
+					right: 0,
+					bottom: 0,
+					zIndex: 100,
+					bgcolor: ({ palette }) =>
+						palette.getContrastText(palette.background.paper),
+				}}
 			/>
-		</Box>
+			<SimpleIcon icon={Icons.siSimpleicons} sx={{ mx: 'auto' }} />
+			<Search value={filterText} setValue={setFilterText} />
+			<div>
+				{Object.entries(Icons).map(
+					([name, value], i) =>
+						(filterText.length === 0 ||
+							value.title.toLowerCase().includes(filterText.toLowerCase())) && (
+							<SimpleIcon icon={value} colored sx={{ mx: 'auto' }} key={i} />
+						)
+				)}
+			</div>
+		</Drawer>
 	)
 }

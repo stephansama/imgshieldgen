@@ -1,31 +1,32 @@
-import { Box } from '@mui/material'
 import React from 'react'
-
-import IconPicker from '.'
+import Search from './Search'
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-	title: 'Components/IconPicker/IconPicker',
-	component: IconPicker,
+	title: 'Components/IconPicker/Search',
+	component: Search,
 	// More on argTypes: https://storybook.js.org/docs/react/api/argtypes
 	argTypes: {
 		// backgroundColor: { control: 'color' },
 	},
 	parameters: {
 		// More on Story layout: https://storybook.js.org/docs/react/configure/story-layout
-		layout: 'fullscreen',
+		// layout: 'fullscreen',
 	},
 }
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template = (args) => (
-	<Box sx={{ width: '100vw', height: '100vh' }}>
-		<IconPicker {...args} />
-	</Box>
-)
+const Template = (args) => <Search {...args} />
 
-export const Primary = Template.bind({})
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-// Primary.args = {
-// 	title: 'Image Shield Generator',
-// }
+export const Desktop = Template.bind({})
+Desktop.args = {
+	arg0: 'string',
+	arg1: 'string',
+}
+
+export const Mobile = Template.bind({})
+Mobile.args = {
+	arg0: 'string',
+	arg1: 'string',
+}
