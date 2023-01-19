@@ -18,7 +18,7 @@ export default function Navbar({ title }) {
 	const { isDark, toggleDarkmode } = useContext(GlobalContext)
 	const isMobile = useMediaQuery('(max-width:600px)')
 	return (
-		<AppBar position='fixed' color='primary'>
+		<AppBar position='relative' color='primary'>
 			<Toolbar
 				sx={{
 					display: 'flex',
@@ -31,7 +31,7 @@ export default function Navbar({ title }) {
 					<IconButton component='a' href={repository} target='_blank'>
 						<GitHubIcon />
 					</IconButton>
-					<IconButton onClick={() => toggleDarkmode()}>
+					<IconButton onClick={toggleDarkmode}>
 						{isDark ? <Brightness4Icon /> : <Brightness7Icon />}
 					</IconButton>
 				</ButtonGroup>
