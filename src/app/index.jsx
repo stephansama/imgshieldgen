@@ -5,9 +5,9 @@ import { Box } from '@mui/material'
 
 export default function App() {
 	return (
-		<Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+		<Box sx={{ display: 'flex', height: '100vh', flexDirection: 'column' }}>
 			<Navbar />
-			<Box sx={{ display: 'flex', flexGrow: 1 }}>
+			<Box sx={{ display: 'flex', flexGrow: 1, overflowY: 'hidden' }}>
 				<IconPicker />
 				<Footer />
 			</Box>
