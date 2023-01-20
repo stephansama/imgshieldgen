@@ -8,7 +8,7 @@ export default function Search({ value, setValue }) {
 			<TextField
 				id=''
 				label=''
-				sx={{ p: 0, m: 0 }}
+				placeholder='Search for Simple Icon...'
 				value={value}
 				onChange={(e) => setValue(e.target.value)}
 				fullWidth

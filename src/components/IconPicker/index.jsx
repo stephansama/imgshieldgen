@@ -1,15 +1,21 @@
-import { useCallback, useState } from 'react'
+import { createContext, useCallback, useState } from 'react'
 
 import { Box, Drawer } from '@mui/material'
-
-import Icons from 'simple-icons'
 
 import Search from './Search'
 import SimpleIcon from './SimpleIcon'
 
+// TODO: lazy load icons
+import allSimpleIcons from 'simple-icons'
+import useIcons from '@hooks/useIcons'
+
+export const IconPickerContext = createContext()
+
 export default function IconPicker() {
-	const [drawerWidth, setDrawerWidth] = useState(40)
+	const [drawerWidth, setDrawerWidth] = useState(358)
 	const [filterText, setFilterText] = useState('')
+
+	const { shownIcons } = useIcons(allSimpleIcons, filterText)
 
 	const handleMouseDown = () => {
 		document.addEventListener('mouseup', handleMouseUp, true)
@@ -49,17 +55,20 @@ export default function IconPicker() {
 						palette.getContrastText(palette.background.paper),
 				}}
 			/>
-			<SimpleIcon icon={Icons.siSimpleicons} sx={{ mx: 'auto' }} />
+			<SimpleIcon icon={allSimpleIcons.siSimpleicons} sx={{ mx: 'auto' }} />
 			<Search value={filterText} setValue={setFilterText} />
-			<div>
-				{Object.entries(Icons).map(
-					([name, value], i) =>
-						(filterText.length === 0 ||
-							value.title.toLowerCase().includes(filterText.toLowerCase())) && (
-							<SimpleIcon icon={value} colored sx={{ mx: 'auto' }} key={i} />
-						)
-				)}
-			</div>
+			<Box
+				sx={{
+					bottom: 0,
+					overflowY: 'scroll',
+					height: '87%',
+					position: 'absolute',
+				}}
+			>
+				{shownIcons.map((icon, i) => (
+					<SimpleIcon icon={icon} colored key={i} />
+				))}
+			</Box>
 		</Drawer>
 	)
 }
