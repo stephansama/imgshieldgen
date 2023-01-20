@@ -19,7 +19,14 @@ export default {
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template = (args) => (
-	<Box sx={{ width: '100vw', height: '100vh' }}>
+	<Box
+		sx={{
+			width: '100vw',
+			display: 'flex',
+			height: '100vh',
+			overflowY: 'hidden',
+		}}
+	>
 		<IconPicker {...args} />
 	</Box>
 )

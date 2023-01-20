@@ -1,6 +1,6 @@
 import { createContext, useCallback, useState } from 'react'
 
-import { Box, Drawer } from '@mui/material'
+import { Box, Drawer, Tooltip } from '@mui/material'
 
 import Search from './Search'
 import SimpleIcon from './SimpleIcon'
@@ -12,7 +12,7 @@ import useIcons from '@hooks/useIcons'
 export const IconPickerContext = createContext()
 
 export default function IconPicker() {
-	const [drawerWidth, setDrawerWidth] = useState(358)
+	const [drawerWidth, setDrawerWidth] = useState(380)
 	const [filterText, setFilterText] = useState('')
 
 	const { shownIcons } = useIcons(allSimpleIcons, filterText)
@@ -37,7 +37,12 @@ export default function IconPicker() {
 			anchor='left'
 			variant='permanent'
 			PaperProps={{
-				style: { width: drawerWidth, position: 'relative' },
+				style: {
+					width: drawerWidth,
+					display: 'flex',
+					position: 'relative',
+					maxHeight: '100%',
+				},
 			}}
 		>
 			<Box
@@ -55,18 +60,67 @@ export default function IconPicker() {
 						palette.getContrastText(palette.background.paper),
 				}}
 			/>
-			<SimpleIcon icon={allSimpleIcons.siSimpleicons} sx={{ mx: 'auto' }} />
-			<Search value={filterText} setValue={setFilterText} />
 			<Box
 				sx={{
-					bottom: 0,
-					overflowY: 'scroll',
-					height: '87%',
-					position: 'absolute',
+					display: 'flex',
+					flexDirection: 'column',
+					justifyContent: 'center',
+					py: '10px',
+					borderBottom: '4px solid black',
+				}}
+			>
+				<Tooltip title='Simple Icons' placement='right'>
+					<Box
+						sx={{
+							width: 'min-content',
+							height: 'min-content',
+							mx: 'auto',
+							my: '10px',
+							p: '10px',
+							display: 'flex',
+							justifyContent: 'center',
+							alignItems: 'center',
+							border: '2px solid black',
+							borderRadius: '50%',
+							// boxShadow: 3,
+							cursor: 'pointer',
+							bgcolor: '#fff',
+						}}
+						component='a'
+						target='_blank'
+						href='https://simpleicons.org/'
+					>
+						<SimpleIcon colored icon={allSimpleIcons.siSimpleicons} />
+					</Box>
+				</Tooltip>
+				<Search value={filterText} setValue={setFilterText} />
+			</Box>
+			<Box
+				sx={{
+					flexGrow: 1,
+					display: 'flex',
+					flexWrap: 'wrap',
+					overflowY: 'auto',
+					alignContent: 'flex-start',
+					justifyContent: 'center',
 				}}
 			>
 				{shownIcons.map((icon, i) => (
-					<SimpleIcon icon={icon} colored key={i} />
+					<Tooltip key={i} title={icon.title}>
+						<Box
+							sx={{
+								p: '5px',
+								width: 'min-content',
+								height: 'min-content',
+								bgcolor: '#fff',
+								display: 'flex',
+								justifyContent: 'center',
+								alignItems: 'center',
+							}}
+						>
+							<SimpleIcon icon={icon} colored />
+						</Box>
+					</Tooltip>
 				))}
 			</Box>
 		</Drawer>
