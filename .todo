@@ -1,4 +1,9 @@
-- [ ] 🎨 Add Favicon
+In Progress
 - [ ] 📃 Add react head to project
 - [ ] 🚚 Lazy load simple icons in icon picker
-- [ ] 👀 Add search to icon picker
+- [ ] 📃 Look into using react-draggable library
+- [ ] 📑 Look into using component based context
+
+Completed
+- [x] 🎨 Add Favicon
+- [x] 👀 Add search to icon picker

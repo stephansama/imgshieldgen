@@ -1,6 +1,6 @@
 import { Box, Divider, Typography } from '@mui/material'
 
-import { repository } from '@pkg'
+import { name, repository } from '@pkg'
 
 export default function Footer() {
 	const linkStyles = {
@@ -20,7 +20,7 @@ export default function Footer() {
 				}}
 			>
 				<Typography variant='body1'>
-					&copy;&nbsp;
+					&copy;{'  '}
 					<Typography
 						component='a'
 						target='_blank'
@@ -28,7 +28,7 @@ export default function Footer() {
 						href={repository}
 						sx={linkStyles}
 					>
-						imgshieldgen
+						{name}
 					</Typography>
 				</Typography>
 				<Typography variant='body1'>
@@ -41,6 +41,16 @@ export default function Footer() {
 						sx={linkStyles}
 					>
 						shields.io
+					</Typography>
+					<> & </>
+					<Typography
+						component='a'
+						target='_blank'
+						color='primary'
+						href='https://simpleicons.org/'
+						sx={linkStyles}
+					>
+						Simple Icons
 					</Typography>
 				</Typography>
 			</Box>
