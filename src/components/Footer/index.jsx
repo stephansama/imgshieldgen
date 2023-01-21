@@ -1,15 +1,17 @@
 import { Box, Divider, Typography } from '@mui/material'
+import { styled } from '@mui/system'
 
 import { name, repository } from '@pkg'
 
 export default function Footer() {
-	const linkStyles = {
-		textDecoration: 'none',
-		'&:hover': { textDecoration: 'underline' },
-	}
+	const StyledLink = styled(({ children, ...props }) => (
+		<Typography component='a' target='_blank' color='secondary' {...props}>
+			{children}
+		</Typography>
+	))({ textDecoration: 'none', '&:hover': { textDecoration: 'underline' } })
 
 	return (
-		<div>
+		<>
 			<Divider />
 			<Box
 				sx={{
@@ -21,39 +23,15 @@ export default function Footer() {
 			>
 				<Typography variant='body1'>
 					&copy;{'  '}
-					<Typography
-						component='a'
-						target='_blank'
-						color='secondary'
-						href={repository}
-						sx={linkStyles}
-					>
-						{name}
-					</Typography>
+					<StyledLink href={repository}>{name}</StyledLink>
 				</Typography>
 				<Typography variant='body1'>
 					Built using{' '}
-					<Typography
-						component='a'
-						target='_blank'
-						color='primary'
-						href='https://shields.io/'
-						sx={linkStyles}
-					>
-						shields.io
-					</Typography>
+					<StyledLink href='https://shields.io/'>shields.io</StyledLink>
 					<> & </>
-					<Typography
-						component='a'
-						target='_blank'
-						color='primary'
-						href='https://simpleicons.org/'
-						sx={linkStyles}
-					>
-						Simple Icons
-					</Typography>
+					<StyledLink href='https://simpleicons.org/'>Simple Icons</StyledLink>
 				</Typography>
 			</Box>
-		</div>
+		</>
 	)
 }
