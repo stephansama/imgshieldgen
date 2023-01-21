@@ -1,15 +1,13 @@
-import { createContext, useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import { Box, Drawer, Tooltip } from '@mui/material'
-
-import Search from './Search'
-import SimpleIcon from './SimpleIcon'
-
-// TODO: lazy load icons
 import allSimpleIcons from 'simple-icons'
+
 import useIcons from '@hooks/useIcons'
 
-export const IconPickerContext = createContext()
+import SimpleIconLogo from './SimpleIconLogo'
+import SimpleIcon from './SimpleIcon'
+import Search from './Search'
 
 export default function IconPicker() {
 	const [drawerWidth, setDrawerWidth] = useState(380)
@@ -69,30 +67,7 @@ export default function IconPicker() {
 					borderBottom: '4px solid black',
 				}}
 			>
-				<Tooltip title='Simple Icons' placement='right'>
-					<Box
-						sx={{
-							width: 'min-content',
-							height: 'min-content',
-							mx: 'auto',
-							my: '10px',
-							p: '10px',
-							display: 'flex',
-							justifyContent: 'center',
-							alignItems: 'center',
-							border: '2px solid black',
-							borderRadius: '50%',
-							// boxShadow: 3,
-							cursor: 'pointer',
-							bgcolor: '#fff',
-						}}
-						component='a'
-						target='_blank'
-						href='https://simpleicons.org/'
-					>
-						<SimpleIcon colored icon={allSimpleIcons.siSimpleicons} />
-					</Box>
-				</Tooltip>
+				<SimpleIconLogo />
 				<Search value={filterText} setValue={setFilterText} />
 			</Box>
 			<Box
@@ -114,8 +89,8 @@ export default function IconPicker() {
 								height: 'min-content',
 								bgcolor: '#fff',
 								display: 'flex',
-								justifyContent: 'center',
 								alignItems: 'center',
+								justifyContent: 'center',
 							}}
 						>
 							<SimpleIcon icon={icon} colored />
