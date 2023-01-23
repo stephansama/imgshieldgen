@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Box } from '@mui/material'
 
-import Footer from '@components/Footer'
+import Footer from '../Footer/'
 
 import styles from './Preview.module.css'
 
