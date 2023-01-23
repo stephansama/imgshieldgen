@@ -1,18 +1,34 @@
-import React from 'react'
-import TextField from '@mui/material/TextField'
-import { Box } from '@mui/material'
+import { useContext } from 'react'
+import { Autocomplete, Box, TextField } from '@mui/material'
+import { IconPickerContext } from '.'
 
-export default function Search({ value, setValue }) {
+export default function Search() {
+	const { iconFilter, setIconFilter, autoCompleteIconNames } =
+		useContext(IconPickerContext)
+
+	const updateInput = (_, newValue) =>
+		setIconFilter(typeof newValue === 'string' ? newValue : newValue.label)
+
 	return (
-		<Box sx={{ px: { sm: '25px' } }}>
-			<TextField
-				id=''
-				label=''
-				placeholder='Search for Simple Icon...'
-				value={value}
-				onChange={(e) => setValue(e.target.value)}
-				fullWidth
-			/>
-		</Box>
+		<Autocomplete
+			freeSolo
+			disablePortal
+			id='combo-box-demo'
+			options={autoCompleteIconNames}
+			inputValue={iconFilter ?? ''}
+			getOptionLabel={({ label }) => label}
+			onInputChange={updateInput}
+			onChange={updateInput}
+			renderInput={(params) => (
+				<Box sx={{ px: '5px' }}>
+					<TextField
+						{...params}
+						variant='standard'
+						placeholder='Search for an icon...'
+						fullWidth
+					/>
+				</Box>
+			)}
+		/>
 	)
 }

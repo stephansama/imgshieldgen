@@ -1,63 +1,40 @@
-import { useState } from 'react'
+import { createContext, useState } from 'react'
 
-import { Box, Tooltip } from '@mui/material'
-import allSimpleIcons from 'simple-icons'
+import { Box } from '@mui/material'
 
 import ResizableDrawer from '../ResizableDrawer'
 
-import SimpleIconLogo from './SimpleIconLogo'
-import SimpleIcon from './SimpleIcon'
+import IconArea from './IconArea'
 import Search from './Search'
+import SimpleIconLogo from './SimpleIconLogo'
 
 import useIcons from '@hooks/useIcons'
 
-export default function IconPicker() {
-	const [filterText, setFilterText] = useState('')
+export const IconPickerContext = createContext({})
 
-	const { shownIcons } = useIcons(allSimpleIcons, filterText)
+export default function IconPicker() {
+	const [iconFilter, setIconFilter] = useState('')
+	const { shownIcons, autoCompleteIconNames } = useIcons(iconFilter)
 
 	return (
-		<ResizableDrawer anchor='left' minWidth='250'>
-			<Box
-				sx={{
-					display: 'flex',
-					flexDirection: 'column',
-					justifyContent: 'center',
-					py: '10px',
-					borderBottom: '4px solid black',
-				}}
-			>
-				<SimpleIconLogo />
-				<Search value={filterText} setValue={setFilterText} />
-			</Box>
-			<Box
-				sx={{
-					flexGrow: 1,
-					display: 'flex',
-					flexWrap: 'wrap',
-					overflowY: 'auto',
-					alignContent: 'flex-start',
-					justifyContent: 'center',
-				}}
-			>
-				{shownIcons.map((icon, i) => (
-					<Tooltip key={i} title={icon.title}>
-						<Box
-							sx={{
-								p: '5px',
-								width: 'min-content',
-								height: 'min-content',
-								bgcolor: '#fff',
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'center',
-							}}
-						>
-							<SimpleIcon icon={icon} colored />
-						</Box>
-					</Tooltip>
-				))}
-			</Box>
-		</ResizableDrawer>
+		<IconPickerContext.Provider
+			value={{ iconFilter, setIconFilter, shownIcons, autoCompleteIconNames }}
+		>
+			<ResizableDrawer anchor='left' minWidth='250'>
+				<Box
+					sx={{
+						py: '10px',
+						display: 'flex',
+						borderBottom: '4px solid black',
+						flexDirection: 'column',
+						justifyContent: 'center',
+					}}
+				>
+					<SimpleIconLogo />
+					<Search />
+				</Box>
+				<IconArea />
+			</ResizableDrawer>
+		</IconPickerContext.Provider>
 	)
 }

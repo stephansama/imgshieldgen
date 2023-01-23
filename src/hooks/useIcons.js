@@ -1,14 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import allSimpleIcons from 'simple-icons'
 
-export default function useIcons(allIcons, query, maxIcons = 175) {
+export default function useIcons(query, maxIcons = 175) {
 	const [shownIcons, setShownIcons] = useState([])
 	const [iconNames, setIconNames] = useState([])
+
+	const lastIconRef = useRef()
 
 	const createSlugName = (slug) =>
 		'si' + slug[0].toUpperCase() + slug.substring(1)
 
 	const resetIcons = () =>
-		setShownIcons(Object.values(allIcons).filter((x, i) => i <= maxIcons))
+		setShownIcons(
+			Object.values(allSimpleIcons).filter((x, i) => i <= maxIcons)
+		)
 
 	const filterIcons = () =>
 		setShownIcons(() =>
@@ -21,13 +26,14 @@ export default function useIcons(allIcons, query, maxIcons = 175) {
 				})
 				.map(
 					({ slug }, i) =>
-						i < maxIcons && allIcons[createSlugName(slug)]
+						i <= maxIcons && allSimpleIcons[createSlugName(slug)]
 				)
+				.filter((x) => x)
 		)
 
 	const collectIconNames = () =>
 		setIconNames(() =>
-			Object.values(allIcons).map(({ title, slug }) => ({
+			Object.values(allSimpleIcons).map(({ title, slug }) => ({
 				slug,
 				title: title.toLowerCase(),
 			}))
@@ -44,5 +50,12 @@ export default function useIcons(allIcons, query, maxIcons = 175) {
 		resetIcons()
 	}, [])
 
-	return { shownIcons }
+	return {
+		autoCompleteIconNames: iconNames.map(({ slug }) => ({
+			label: slug,
+			value: slug,
+		})),
+		lastIconRef,
+		shownIcons,
+	}
 }
