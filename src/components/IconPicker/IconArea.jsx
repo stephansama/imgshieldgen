@@ -18,7 +18,7 @@ export default function IconArea() {
 			}}
 		>
 			{shownIcons.map((icon, i, allIcons) => (
-				<Tooltip key={i} title={icon.title}>
+				<Tooltip followCursor key={i} title={icon.title}>
 					<Box
 						sx={{
 							p: '5px',
