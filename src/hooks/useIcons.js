@@ -1,11 +1,13 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useInView } from 'react-intersection-observer'
 import allSimpleIcons from 'simple-icons'
 
-export default function useIcons(query, maxIcons = 175) {
+export default function useIcons(query) {
 	const [shownIcons, setShownIcons] = useState([])
 	const [iconNames, setIconNames] = useState([])
+	const [maxIcons, setMaxIcons] = useState(175)
 
-	const lastIconRef = useRef()
+	const [lastIconRef, lastIconInView] = useInView({ threshold: 0 })
 
 	const createSlugName = (slug) =>
 		'si' + slug[0].toUpperCase() + slug.substring(1)

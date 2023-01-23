@@ -14,11 +14,18 @@ export const IconPickerContext = createContext({})
 
 export default function IconPicker() {
 	const [iconFilter, setIconFilter] = useState('')
-	const { shownIcons, autoCompleteIconNames } = useIcons(iconFilter)
+	const { shownIcons, autoCompleteIconNames, lastIconRef } =
+		useIcons(iconFilter)
 
 	return (
 		<IconPickerContext.Provider
-			value={{ iconFilter, setIconFilter, shownIcons, autoCompleteIconNames }}
+			value={{
+				autoCompleteIconNames,
+				lastIconRef,
+				shownIcons,
+				iconFilter,
+				setIconFilter,
+			}}
 		>
 			<ResizableDrawer anchor='left' minWidth='250'>
 				<Box
