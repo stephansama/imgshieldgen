@@ -1,6 +1,12 @@
 import { useEffect, useContext } from 'react'
 // MUI
-import { ButtonGroup, IconButton, Tooltip, useMediaQuery } from '@mui/material'
+import {
+	ButtonGroup,
+	IconButton,
+	Tooltip,
+	useMediaQuery,
+	useTheme,
+} from '@mui/material'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
@@ -14,10 +20,9 @@ import { GlobalContext } from '@/context'
 
 import { displayName, name, repository } from '@pkg'
 
-import styles from './Navbar.module.css'
-
-export default function Navbar({ title }) {
+export default function Navbar() {
 	const { isDark, toggleDarkmode } = useContext(GlobalContext)
+	const { GlobalStyles } = useTheme()
 	const isMobile = useMediaQuery('(max-width:600px)')
 	return (
 		<AppBar position='relative' color='primary'>
@@ -29,7 +34,7 @@ export default function Navbar({ title }) {
 					zIndex: 101,
 				}}
 			>
-				<Typography variant='h5' className={styles['no-select']}>
+				<Typography variant='h5' className={GlobalStyles['no-select']}>
 					{isMobile ? name : displayName}
 				</Typography>
 				<ButtonGroup>
