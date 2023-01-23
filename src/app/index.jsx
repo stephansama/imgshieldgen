@@ -3,6 +3,7 @@ import { Box } from '@mui/material'
 import Navbar from '@components/Navbar'
 import Preview from '@components/Preview'
 import IconPicker from '@components/IconPicker'
+import BadgeBuilder from '@components/BadgeBuilder'
 
 export default function App() {
 	return (
@@ -11,6 +12,7 @@ export default function App() {
 			<Box sx={{ display: 'flex', flexGrow: 1, overflowY: 'hidden' }}>
 				<IconPicker />
 				<Preview grid />
+				<BadgeBuilder />
 			</Box>
 		</Box>
 	)
