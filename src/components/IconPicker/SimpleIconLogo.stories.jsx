@@ -3,7 +3,7 @@ import SimpleIconLogo from './SimpleIconLogo'
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-	title: 'Components/IconPicker/SimpleIconLogo',
+	title: 'IconPicker/SimpleIconLogo',
 	component: SimpleIconLogo,
 	// More on argTypes: https://storybook.js.org/docs/react/api/argtypes
 	argTypes: {
@@ -20,7 +20,7 @@ const Template = (args) => <SimpleIconLogo {...args} />
 
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 export const Primary = Template.bind({})
-Primary.args = {
-	arg0: 'string',
-	arg1: 'string',
-}
+// Primary.args = {
+// 	arg0: 'string',
+// 	arg1: 'string',
+// }
