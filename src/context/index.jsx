@@ -1,4 +1,4 @@
-import { createContext, useMemo } from 'react'
+import { createContext, useMemo, useState } from 'react'
 import { red } from '@mui/material/colors'
 import {
 	createTheme,
@@ -9,6 +9,8 @@ import {
 
 import useLocalStorage from '@hooks/useLocalStorage'
 
+import styles from './global.module.css'
+
 export const GlobalContext = createContext()
 
 export default function GlobalProvider({ children }) {
@@ -17,11 +19,23 @@ export default function GlobalProvider({ children }) {
 		'darkmode',
 		prefersDark ? 'dark' : 'light'
 	)
+	const isDark = darkmode === 'dark'
 
 	const toggleDarkmode = () =>
 		setDarkmode((prev) => (prev === 'dark' ? 'light' : 'dark'))
 
-	const isDark = darkmode === 'dark'
+	const [selectedIcon, setSelectedIcon] = useState(null)
+	// const [badgeURL, setBadgeURL] = useState(null)
+
+	const selectIcon = (icon) => () =>
+		setSelectedIcon(() => {
+			console.log(icon)
+			return icon
+		})
+
+	const badgeURL = useMemo(() => {
+		return ``
+	}, [selectedIcon])
 
 	const theme = useMemo(
 		() =>
@@ -30,12 +44,15 @@ export default function GlobalProvider({ children }) {
 					mode: darkmode,
 					primary: { main: red[700] },
 				},
+				GlobalStyles: { ...styles },
 			}),
 		[darkmode]
 	)
 
 	return (
-		<GlobalContext.Provider value={{ isDark, toggleDarkmode, setDarkmode }}>
+		<GlobalContext.Provider
+			value={{ isDark, toggleDarkmode, setDarkmode, selectIcon }}
+		>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
 				{children}
