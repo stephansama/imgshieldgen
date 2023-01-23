@@ -1,29 +1,39 @@
 import { useContext } from 'react'
 import { PreviewContext } from '.'
-import { Box, ButtonGroup, IconButton, Tooltip } from '@mui/material'
+import { ButtonGroup, IconButton, Tooltip } from '@mui/material'
 
+import FileUploadIcon from '@mui/icons-material/FileUpload'
 import GridOffIcon from '@mui/icons-material/GridOff'
 import GridOnIcon from '@mui/icons-material/GridOn'
-import FileUploadIcon from '@mui/icons-material/FileUpload'
 
 export default function Toolbar() {
-	const { grid, setGrid } = useContext(PreviewContext)
-	const toggleGrid = () => setGrid((prev) => !prev)
+	const { grid, toggleGrid } = useContext(PreviewContext)
+
+	const ToolbarButton = ({ children, onClick, title }) => (
+		<Tooltip arrow placement='top' title={title}>
+			<IconButton onClick={onClick}>{children}</IconButton>
+		</Tooltip>
+	)
+
 	return (
-		<Box sx={{ mx: 'auto', my: '5px' }}>
-			<ButtonGroup
-				variant='contained'
-				sx={{ p: '5px', bgcolor: ({ palette }) => palette.background.paper }}
+		<ButtonGroup
+			variant='contained'
+			sx={{
+				p: '5px',
+				my: '5px',
+				mx: 'auto',
+				bgcolor: (theme) => theme.palette.background.paper,
+			}}
+		>
+			<ToolbarButton
+				title={`Toggle grid ${grid ? 'off' : 'on'}`}
+				onClick={toggleGrid}
 			>
-				<Tooltip title={`Toggle grid ${grid ? 'off' : 'on'}`}>
-					<IconButton onClick={toggleGrid}>
-						<>{grid ? <GridOffIcon /> : <GridOnIcon />}</>
-					</IconButton>
-				</Tooltip>
-				<IconButton>
-					<FileUploadIcon />
-				</IconButton>
-			</ButtonGroup>
-		</Box>
+				<>{grid ? <GridOffIcon /> : <GridOnIcon />}</>
+			</ToolbarButton>
+			<ToolbarButton title='Export badge'>
+				<FileUploadIcon />
+			</ToolbarButton>
+		</ButtonGroup>
 	)
 }
