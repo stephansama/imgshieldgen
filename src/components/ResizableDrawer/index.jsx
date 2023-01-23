@@ -1,9 +1,9 @@
 import { Box, Drawer } from '@mui/material'
 import Draggable from 'react-draggable'
-import useDrag from '@hooks/useDrag'
+import useResizable from '@hooks/useResizable'
 
 export default function ResizableDrawer({ anchor, children, minWidth }) {
-	const { drawerWidth, handleDrag } = useDrag(anchor, minWidth)
+	const { resizeWidth, handleResize } = useResizable(anchor, minWidth)
 
 	const invertDirection = (direction) =>
 		direction === 'right' ? 'left' : 'right'
@@ -12,7 +12,7 @@ export default function ResizableDrawer({ anchor, children, minWidth }) {
 		<Draggable
 			axis='x'
 			handle='.drawerHandle'
-			onDrag={handleDrag}
+			onDrag={handleResize}
 			position={{}}
 		>
 			<Drawer
@@ -21,7 +21,7 @@ export default function ResizableDrawer({ anchor, children, minWidth }) {
 				PaperProps={{
 					style: {
 						minWidth,
-						width: `${drawerWidth}px`,
+						width: `${resizeWidth}px`,
 						display: 'flex',
 						flexDirection: 'column',
 						position: 'relative',
