@@ -8,7 +8,7 @@ export default {
 	component: Preview,
 	// More on argTypes: https://storybook.js.org/docs/react/api/argtypes
 	argTypes: {
-		grid: { type: 'boolean' },
+		useGrid: { type: 'boolean' },
 		color: { control: 'color' },
 	},
 	parameters: {
@@ -32,7 +32,7 @@ const Template = (args) => (
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 export const Grid = Template.bind({})
 Grid.args = {
-	grid: true,
+	useGrid: true,
 }
 
 export const NoGrid = Template.bind({})

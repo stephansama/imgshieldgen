@@ -1,33 +1,48 @@
-import React from 'react'
+import { createContext, useState } from 'react'
 
 import { Box } from '@mui/material'
 
-import Footer from '../Footer/'
+import Footer from '../Footer'
+import Toolbar from './Toolbar'
 
 import styles from './Preview.module.css'
 
-export default function Preview({ children, color, grid }) {
+export const PreviewContext = createContext()
+
+export default function Preview({ children, color, useGrid }) {
+	const [grid, setGrid] = useState(useGrid)
 	return (
-		<Box
-			sx={{
-				display: 'flex',
-				flexGrow: 1,
-				flexDirection: 'column',
-			}}
-		>
+		<PreviewContext.Provider value={{ grid, setGrid }}>
 			<Box
-				className={grid ? styles.grid : ''}
 				sx={{
 					display: 'flex',
-					bgcolor: color ? color : '',
 					flexGrow: 1,
-					alignItems: 'center',
-					justifyContent: 'center',
+					flexDirection: 'column',
 				}}
 			>
-				{children}
+				<Box
+					className={grid ? styles.grid : ''}
+					sx={{
+						display: 'flex',
+						bgcolor: color ? color : '',
+						flexGrow: 1,
+						flexDirection: 'column',
+					}}
+				>
+					<Box
+						sx={{
+							display: 'flex',
+							flexGrow: 1,
+							alignItems: 'center',
+							justifyContent: 'center',
+						}}
+					>
+						{children}
+					</Box>
+					<Toolbar />
+				</Box>
+				<Footer />
 			</Box>
-			<Footer />
-		</Box>
+		</PreviewContext.Provider>
 	)
 }
