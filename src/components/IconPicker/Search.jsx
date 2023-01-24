@@ -16,7 +16,9 @@ export default function Search() {
 			id='combo-box-demo'
 			options={autoCompleteIconNames}
 			inputValue={iconFilter ?? ''}
-			getOptionLabel={({ label }) => label}
+			getOptionLabel={(option) =>
+				typeof option === 'string' ? option : option.label
+			}
 			onInputChange={updateInput}
 			onChange={updateInput}
 			renderInput={(params) => (
