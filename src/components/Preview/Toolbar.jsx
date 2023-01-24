@@ -1,16 +1,20 @@
 import { useContext } from 'react'
 import { PreviewContext } from '.'
-import { ButtonGroup, IconButton, Tooltip } from '@mui/material'
+import { ButtonGroup, IconButton, Slider, Tooltip } from '@mui/material'
 
 import FileUploadIcon from '@mui/icons-material/FileUpload'
 import GridOffIcon from '@mui/icons-material/GridOff'
 import GridOnIcon from '@mui/icons-material/GridOn'
 import LockIcon from '@mui/icons-material/Lock'
 import LockOpenIcon from '@mui/icons-material/LockOpen'
+import HeightIcon from '@mui/icons-material/Height'
+import { GlobalContext } from '@/context'
 
 export default function Toolbar() {
 	const { grid, toggleGrid, openDialog, position, togglePositionLock } =
 		useContext(PreviewContext)
+
+	const { previewHeight, setPreviewHeight } = useContext(GlobalContext)
 
 	const ToolbarButton = ({ children, onClick, title }) => (
 		<Tooltip arrow placement='top' title={title}>
@@ -28,6 +32,12 @@ export default function Toolbar() {
 				bgcolor: (theme) => theme.palette.background.paper,
 			}}
 		>
+			<ToolbarButton
+				title={`Change preview height to ${previewHeight === 20 ? 100 : 20}px`}
+				onClick={() => setPreviewHeight((prev) => (prev === 20 ? 100 : 20))}
+			>
+				<HeightIcon />
+			</ToolbarButton>
 			<ToolbarButton
 				title={`${position ? 'Unl' : 'L'}ock badge position`}
 				onClick={togglePositionLock}
