@@ -24,18 +24,31 @@ export default function GlobalProvider({ children }) {
 	const toggleDarkmode = () =>
 		setDarkmode((prev) => (prev === 'dark' ? 'light' : 'dark'))
 
-	const [selectedIcon, setSelectedIcon] = useState(null)
-	// const [badgeURL, setBadgeURL] = useState(null)
+	const [previewHeight, setPreviewHeight] = useState(20)
 
-	const selectIcon = (icon) => () =>
-		setSelectedIcon(() => {
-			console.log(icon)
-			return icon
-		})
+	const badgeStyleOptions = [
+		'for-the-badge',
+		'flat',
+		'flat-square',
+		'plastic',
+		'social',
+	]
 
-	const badgeURL = useMemo(() => {
-		return ``
-	}, [selectedIcon])
+	const [badgeOptions, setBadgeOptions] = useState({
+		label: '',
+		message: '',
+		labelColor: '',
+		logo: '',
+		logoColor: '',
+		logoWidth: '',
+		color: '#fff',
+		style: badgeStyleOptions[0],
+	})
+
+	const updateBadgeOption = (key, val) =>
+		setBadgeOptions((prev) => ({ ...prev, [key]: val }))
+
+	const selectIcon = (icon) => () => updateBadgeOption('logo', icon)
 
 	const theme = useMemo(
 		() =>
@@ -51,7 +64,17 @@ export default function GlobalProvider({ children }) {
 
 	return (
 		<GlobalContext.Provider
-			value={{ isDark, toggleDarkmode, setDarkmode, selectIcon }}
+			value={{
+				isDark,
+				toggleDarkmode,
+				setDarkmode,
+				selectIcon,
+				badgeStyleOptions,
+				badgeOptions,
+				updateBadgeOption,
+				previewHeight,
+				setPreviewHeight,
+			}}
 		>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
